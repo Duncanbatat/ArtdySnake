@@ -21,33 +21,8 @@ public class Snake {
     }
 
     public void setDirection(Direction direction) {
-        if ((this.direction == Direction.LEFT || this.direction == Direction.RIGHT) && snakeParts.get(0).x == snakeParts.get(1).x) {
-            return;
-        }
-        if ((this.direction == Direction.UP || this.direction == Direction.DOWN) && snakeParts.get(0).y == snakeParts.get(1).y) {
-            return;
-        }
-        switch (direction) {
-        case UP:
-            if (!(this.direction == Direction.DOWN)) {
-                this.direction = direction;
-            }
-            break;
-        case RIGHT:
-            if (!(this.direction == Direction.LEFT)) {
-                this.direction = direction;
-            }
-            break;
-        case DOWN:
-            if (!(this.direction == Direction.UP)) {
-                this.direction = direction;
-            }
-            break;
-        case LEFT:
-            if (!(this.direction == Direction.RIGHT)) {
-                this.direction = direction;
-            }
-            break;
+        if (!(this.direction == direction.getOpposite())) {
+            this.direction = direction;
         }
     }
 
@@ -95,10 +70,10 @@ public class Snake {
         int headX = snakeParts.get(0).x;
         int headY = snakeParts.get(0).y;
         switch (direction) {
-        case UP -> headY--;
-        case RIGHT -> headX++;
-        case DOWN -> headY++;
-        case LEFT -> headX--;
+            case UP -> headY--;
+            case RIGHT -> headX++;
+            case DOWN -> headY++;
+            case LEFT -> headX--;
         }
         return new GameObject(headX, headY);
     }
@@ -113,7 +88,7 @@ public class Snake {
 
     public void draw(Game game) {
         Color snakeColor;
-        if(isAlive) {
+        if (isAlive) {
             snakeColor = Color.BLACK;
         } else {
             snakeColor = Color.RED;

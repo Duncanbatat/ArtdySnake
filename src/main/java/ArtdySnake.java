@@ -30,6 +30,12 @@ public class ArtdySnake extends Game {
         drawScene();
     }
 
+    private void restartGame() {
+        if(isGameStopped) {
+            createGame();
+        }
+    }
+
     private void createNewApple() {
         Apple newApple;
         do {
@@ -38,6 +44,17 @@ public class ArtdySnake extends Game {
             newApple = new Apple(x, y);
         } while (snake.checkCollision(newApple));
         apple = newApple;
+    }
+
+    @Override
+    public void onKeyPress(Key key) {
+        switch (key) {
+            case UP -> snake.setDirection(Direction.UP);
+            case RIGHT -> snake.setDirection(Direction.RIGHT);
+            case DOWN -> snake.setDirection(Direction.DOWN);
+            case LEFT -> snake.setDirection(Direction.LEFT);
+            case SPACE -> restartGame();
+        }
     }
 
     @Override
@@ -59,37 +76,6 @@ public class ArtdySnake extends Game {
         drawScene();
     }
 
-    private void drawScene() {
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
-                setCellValueEx(j, i, Color.ORANGE, "");
-            }
-        }
-        snake.draw(this);
-        apple.draw(this);
-    }
-    @Override
-    public void onKeyPress(Key key) {
-        switch (key) {
-        case UP:
-            snake.setDirection(Direction.UP);
-            break;
-        case RIGHT:
-            snake.setDirection(Direction.RIGHT);
-            break;
-        case DOWN:
-            snake.setDirection(Direction.DOWN);
-            break;
-        case LEFT:
-            snake.setDirection(Direction.LEFT);
-            break;
-        case SPACE:
-            if (isGameStopped) {
-                createGame();
-            }
-        }
-    }
-
     private void gameOver() {
         stopTurnTimer();
         isGameStopped = true;
@@ -100,5 +86,15 @@ public class ArtdySnake extends Game {
         stopTurnTimer();
         isGameStopped = true;
         showMessageDialog(Color.WHITE, "Победа!", Color.BLACK, 10);
+    }
+
+    private void drawScene() {
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT; j++) {
+                setCellValueEx(j, i, Color.ORANGE, "");
+            }
+        }
+        snake.draw(this);
+        apple.draw(this);
     }
 }
