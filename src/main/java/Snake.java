@@ -29,7 +29,6 @@ public class Snake {
     public void setDirection(Direction direction) {
         if (!(this.direction == direction.getOpposite())) {
             this.nextDirection = direction;
-            System.out.println("Direction is " + direction.name());
         }
     }
 
@@ -57,8 +56,8 @@ public class Snake {
     }
 
     private boolean checkWallCollision(GameObject head) {
-        return head.x < 0 || head.x >= ArtdySnake.WIDTH
-                || head.y < 0 || head.y >= ArtdySnake.HEIGHT;
+        return head.x < 0 || head.x >= ArtdySnake.width
+                || head.y < 0 || head.y >= ArtdySnake.height;
     }
 
     public boolean checkCollision(GameObject gameObject) {
