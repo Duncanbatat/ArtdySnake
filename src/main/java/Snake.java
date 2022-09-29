@@ -11,6 +11,7 @@ public class Snake {
     public boolean isAlive;
     private List<GameObject> snakeParts = new ArrayList<>();
     private Direction direction;
+    private Direction nextDirection;
 
     public Snake(int x, int y) {
         snakeParts.add(new GameObject(x, y));
@@ -18,11 +19,17 @@ public class Snake {
         snakeParts.add(new GameObject(x + 2, y));
         isAlive = true;
         direction = Direction.LEFT;
+        nextDirection = direction;
+    }
+
+    public void updateDirection() {
+        this.direction = nextDirection;
     }
 
     public void setDirection(Direction direction) {
         if (!(this.direction == direction.getOpposite())) {
-            this.direction = direction;
+            this.nextDirection = direction;
+            System.out.println("Direction is " + direction.name());
         }
     }
 
@@ -50,11 +57,8 @@ public class Snake {
     }
 
     private boolean checkWallCollision(GameObject head) {
-        if (head.x < 0 || head.x >= ArtdySnake.WIDTH
-                || head.y < 0 || head.y >= ArtdySnake.HEIGHT) {
-            return true;
-        }
-        return false;
+        return head.x < 0 || head.x >= ArtdySnake.WIDTH
+                || head.y < 0 || head.y >= ArtdySnake.HEIGHT;
     }
 
     public boolean checkCollision(GameObject gameObject) {

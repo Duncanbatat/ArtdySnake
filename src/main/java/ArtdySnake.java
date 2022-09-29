@@ -73,6 +73,7 @@ public class ArtdySnake extends Game {
         if (snake.getLength() > GOAL) {
             win();
         }
+        snake.updateDirection();
         drawScene();
     }
 
